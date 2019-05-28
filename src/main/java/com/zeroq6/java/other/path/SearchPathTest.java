@@ -1,17 +1,17 @@
 package com.zeroq6.java.other.path;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class SearchPathTest {
 
     public static void main(String[] args) {
 
-        System.out.println(JSON.toJSONString(getPlanList("1", "5", null, null, null)));
+        System.out.println(JSON.toJSONString(getPlanList("1", "6", null, null, null), SerializerFeature.PrettyFormat));
     }
 
 
@@ -41,7 +41,7 @@ public class SearchPathTest {
 
             if (item.getEnd().equals(end)) {
                 Plan plan = new Plan();
-                plan.setStart(start);
+                plan.setStart(newPathList.get(0).getStart());
                 plan.setEnd(end);
                 plan.setLength(newPathList.size());
                 plan.setWeight(newWeight);
@@ -83,14 +83,14 @@ public class SearchPathTest {
         }
         for (int i = 0; i < linkPathSize - 1; i++) {
             Path item = linkedPath.get(i);
-            if (end.equals(item.getStart()) || end.equals(item.getEnd())) {
+            if (end.equals(item.getStart())) {
                 return true;
             }
-            /*if (i == linkPathSize - 1) {
+            if (i == linkPathSize - 2) {
                 if (end.equals(item.getEnd())) {
                     return true;
                 }
-            }*/
+            }
         }
         return false;
 
@@ -114,15 +114,15 @@ public class SearchPathTest {
     private static List<Path> getAllPathList() {
         List<Path> allPathList = new ArrayList<Path>();
         allPathList.add(new Path("0", "1", "2", 1));
-        allPathList.add(new Path("1", "2", "3", 1));
-        allPathList.add(new Path("2", "3", "4", 1));
-        allPathList.add(new Path("3", "4", "5", 1));
-        allPathList.add(new Path("4", "3", "5", 1));
-        allPathList.add(new Path("5", "3", "2", 1));
-        allPathList.add(new Path("6", "7", "3", 1));
-        allPathList.add(new Path("7", "9", "8", 1));
-        allPathList.add(new Path("8", "8", "1", 1));
-        allPathList.add(new Path("9", "5", "7", 1));
+        allPathList.add(new Path("1", "2", "3", 2));
+        allPathList.add(new Path("2", "3", "4", 3));
+        allPathList.add(new Path("3", "4", "5", 4));
+        allPathList.add(new Path("4", "5", "6", 5));
+        allPathList.add(new Path("5", "6", "5", 6));
+        allPathList.add(new Path("6", "5", "4", 7));
+        allPathList.add(new Path("7", "4", "3", 8));
+        allPathList.add(new Path("8", "3", "2", 9));
+        allPathList.add(new Path("9", "2", "1", 10));
         return allPathList;
 
     }

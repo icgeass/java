@@ -53,4 +53,14 @@ public class Path {
     public void setWeight(Integer weight) {
         this.weight = weight;
     }
+
+    @Override
+    public String toString() {
+        return "Path{" +
+                "pathId='" + pathId + '\'' +
+                ", start='" + start + '\'' +
+                ", end='" + end + '\'' +
+                ", weight=" + weight +
+                '}';
+    }
 }

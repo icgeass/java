@@ -66,4 +66,15 @@ public class Plan {
     public void setEnd(String end) {
         this.end = end;
     }
+
+    @Override
+    public String toString() {
+        return "Plan{" +
+                "weight=" + weight +
+                ", pathList=" + pathList +
+                ", length=" + length +
+                ", start='" + start + '\'' +
+                ", end='" + end + '\'' +
+                '}';
+    }
 }

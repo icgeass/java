@@ -1,6 +1,7 @@
 package com.zeroq6.java.other.tree;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class GenTreeTest {
         Node root = list.get(0);
 
         proc(root);
-        System.out.println(JSON.toJSONString(root));
+        System.out.println(JSON.toJSONString(root, SerializerFeature.PrettyFormat));
 
     }
 
