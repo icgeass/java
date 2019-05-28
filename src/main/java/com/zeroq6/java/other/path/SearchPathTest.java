@@ -11,7 +11,7 @@ public class SearchPathTest {
 
     public static void main(String[] args) {
 
-        System.out.println(JSON.toJSONString(getPlanList("1", "6", null, null, null), SerializerFeature.PrettyFormat));
+        System.out.println(JSON.toJSONString(getPlanList("1", "6", null, null, null), SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
     }
 
 
@@ -123,6 +123,9 @@ public class SearchPathTest {
         allPathList.add(new Path("7", "4", "3", 8));
         allPathList.add(new Path("8", "3", "2", 9));
         allPathList.add(new Path("9", "2", "1", 10));
+        allPathList.add(new Path("10", "2", "9", 11));
+        allPathList.add(new Path("11", "9", "4", 12));
+
         return allPathList;
 
     }
