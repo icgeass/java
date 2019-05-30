@@ -26,6 +26,19 @@ package com.zeroq6.java.leetcode.solution;
  * [8,1]
  * 预期：
  * [1,8]
+ * <p>
+ * 第二次错误:int越界
+ * 输入：
+ * [9]
+ * [1,9,9,9,9,9,9,9,9,9]
+ * 输出：
+ * [8,0,4,5,6,0,0,1,4,1]
+ * 预期：
+ * [0,0,0,0,0,0,0,0,0,0,1]
+ * <p>
+ * 改成long不可取,同样有越界的可能
+ * 所以用链表从左至右对位相加进位方式构造链表
+ *
  */
 
 
@@ -59,40 +72,35 @@ class ListNode {
 
 public class Solution2 {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        int a = l1.val;
-        int b = l2.val;
-        int sum = 0;
         ListNode result = null;
 
-        ListNode tmp = l1;
-        int i = 1; // 从第2位开始,所以第一次进入循环就得乘以一个10
-        while ((tmp = tmp.next) != null) {
-            int pow = 1;
-            for (int j = 0; j < i; j++) {
-                pow = pow * 10;
-            }
-            a = a + tmp.val * pow;
-            i++;
-        }
-        tmp = l2;
-        i = 1;
-        while ((tmp = tmp.next) != null) {
-            int pow = 1;
-            for (int j = 0; j < i; j++) {
-                pow = pow * 10;
-            }
-            b = b + tmp.val * pow;
-            i++;
-        }
-        sum = a + b;
+        ListNode tmp1 = l1;
+        ListNode tmp2 = l2;
 
-        //
-        result = new ListNode(sum % 10); // 取最后一位
-        tmp = result;
-        while ((sum = sum / 10) != 0) { // 当sum为个位数时, sum/10=0, 这个个位数在上一次中已经添加
-            tmp.next = new ListNode(sum % 10);
-            tmp = tmp.next;
+        ListNode tmp = null; // 结果指针
+
+        int nextAdd = 0; // 保存本次进位到下一次累加结果,为1或者0
+
+        while (null != tmp1 || null != tmp2) {
+
+            int sum = (null == tmp1 ? 0 : tmp1.val) + (null == tmp2 ? 0 : tmp2.val) + nextAdd;
+            if (null == result) {
+                tmp = new ListNode(sum % 10);  // 取个位
+                result = tmp;
+            } else {
+                tmp.next = new ListNode(sum % 10);  // 取个位
+                tmp = tmp.next;
+            }
+            nextAdd = sum / 10; // 取进位
+
+            tmp1 = null != tmp1 ? tmp1.next : null;
+            tmp2 = null != tmp2 ? tmp2.next : null;
         }
+        if (nextAdd != 0) {
+            tmp.next = new ListNode(nextAdd);
+        }
+
+
         return result;
 
     }
@@ -113,9 +121,9 @@ public class Solution2 {
 
 
     public static void main(String[] args) {
-        ListNode l1 = genListNode(1, 8);
+        ListNode l1 = genListNode(9);
 
-        ListNode l2 = genListNode(0);
+        ListNode l2 = genListNode(1, 9, 9, 9, 9, 9, 9, 9, 9, 9);
 
 
         ListNode result = new Solution2().addTwoNumbers(l1, l2);
@@ -128,6 +136,9 @@ public class Solution2 {
         }
         stringBuilder.deleteCharAt(stringBuilder.length() - 1).append("]");
         System.out.println(stringBuilder.toString());
+
+
+        System.out.println(Integer.MAX_VALUE);
 
 
     }
