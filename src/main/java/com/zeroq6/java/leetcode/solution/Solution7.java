@@ -21,22 +21,24 @@ package com.zeroq6.java.leetcode.solution;
  * 注意:
  * <p>
  * 假设我们的环境只能存储得下 32 位的有符号整数，则其数值范围为 [−231,  231 − 1]。请根据这个假设，如果反转后整数溢出那么就返回 0。
+ * <p>
+ * 第一次错误：越界条件判断错误
+ * <p>
+ * 输入
+ * 1534236469
+ * 输出
+ * 1056389759
+ * 预期结果
+ * 0
  */
 public class Solution7 {
     public int reverse(int x) {
         int result = 0;
-
         while (x / 10 != 0) {
             result = result * 10 + x % 10;
-            if (x > 0 && result < 0 || x < 0 && result > 0) {
-                return 0;
-            }
             x = x / 10;
         }
         result = result * 10 + x % 10;
-        if (x > 0 && result < 0 || x < 0 && result > 0) {
-            return 0;
-        }
         return result;
 
     }
@@ -44,8 +46,11 @@ public class Solution7 {
 
     public static void main(String[] args) {
 
-        System.out.println(new Solution7().reverse(123));
+        System.out.println((int) (Math.pow(2, 31) - 1) == Integer.MAX_VALUE);
+        System.out.println((int) (-Math.pow(2, 31)) == Integer.MIN_VALUE);
+        System.out.println(Integer.MAX_VALUE + "," + Integer.MIN_VALUE);
 
+        System.out.println(new Solution7().reverse(1534236469));
 
     }
 }
