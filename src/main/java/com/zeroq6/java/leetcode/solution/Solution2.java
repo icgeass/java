@@ -16,10 +16,18 @@ package com.zeroq6.java.leetcode.solution;
  * 输出：7 -> 0 -> 8
  * 原因：342 + 465 = 807
  * <p>
+ * 这个例子中:342 + 465 = 807  而243 + 564 = 807 ,比较混淆
+ * <p>
+ * 第一次错误:没有理解逆序, (2 -> 4 -> 3)表示 342而不是243
+ * 输入：
+ * [1,8]
+ * [0]
+ * 输出：
+ * [8,1]
+ * 预期：
+ * [1,8]
  */
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 
 /**
  * Definition for singly-linked list.
@@ -57,12 +65,24 @@ public class Solution2 {
         ListNode result = null;
 
         ListNode tmp = l1;
+        int i = 1; // 从第2位开始,所以第一次进入循环就得乘以一个10
         while ((tmp = tmp.next) != null) {
-            a = a * 10 + tmp.val;
+            int pow = 1;
+            for (int j = 0; j < i; j++) {
+                pow = pow * 10;
+            }
+            a = a + tmp.val * pow;
+            i++;
         }
         tmp = l2;
+        i = 1;
         while ((tmp = tmp.next) != null) {
-            b = b * 10 + tmp.val;
+            int pow = 1;
+            for (int j = 0; j < i; j++) {
+                pow = pow * 10;
+            }
+            b = b + tmp.val * pow;
+            i++;
         }
         sum = a + b;
 
@@ -78,19 +98,36 @@ public class Solution2 {
     }
 
 
+    public static ListNode genListNode(int... arr) {
+        if (null == arr || arr.length == 0) {
+            return null;
+        }
+        ListNode re = new ListNode(arr[0]);
+        ListNode tmp = re;
+        for (int i = 1; i < arr.length; i++) {
+            tmp.next = new ListNode(arr[i]);
+            tmp = tmp.next;
+        }
+        return re;
+    }
+
+
     public static void main(String[] args) {
-        ListNode l1 = new ListNode(2);
-        l1.next = new ListNode(4);
-        l1.next.next = new ListNode(3);
+        ListNode l1 = genListNode(1, 8);
 
-        ListNode l2 = new ListNode(5);
-        l2.next = new ListNode(6);
-        l2.next.next = new ListNode(4);
+        ListNode l2 = genListNode(0);
 
 
-        Object result = new Solution2().addTwoNumbers(l1, l2);
+        ListNode result = new Solution2().addTwoNumbers(l1, l2);
 
-        System.out.println(JSON.toJSONString(result, SerializerFeature.PrettyFormat));
+        ListNode tmp = result;
+        StringBuilder stringBuilder = new StringBuilder("[");
+        while (null != tmp) {
+            stringBuilder.append(tmp.val).append(",");
+            tmp = tmp.next;
+        }
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1).append("]");
+        System.out.println(stringBuilder.toString());
 
 
     }
