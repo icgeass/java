@@ -21,6 +21,10 @@ package com.zeroq6.java.leetcode.solution;
  * 当 needle 是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。
  * <p>
  * 对于本题而言，当 needle 是空字符串时我们应当返回 0 。这与C语言的 strstr() 以及 Java的 indexOf() 定义相符。
+ *
+ * 第一次错误
+ *
+ * 未判断j==len2，直接返回
  */
 public class Solution28 {
 
@@ -39,12 +43,15 @@ public class Solution28 {
         }
         for (int i = 0; i <= len1 - len2; i++) {
             if (haystack.charAt(i) == needle.charAt(0)) {
-                for (int j = 1; j < len2; j++) {
+                int j;
+                for (j = 1; j < len2; j++) {
                     if (haystack.charAt(i + j) != needle.charAt(j)) {
                         break;
                     }
                 }
-                return i;
+                if(j == len2){
+                    return i;
+                }
             }
         }
         return -1;
@@ -52,9 +59,12 @@ public class Solution28 {
 
     }
 
+
     public static void main(String[] args) {
+        System.out.println(new Solution28().strStr("mississippi", "issip"));
         System.out.println(new Solution28().strStr("helloll", "ll"));
         System.out.println(new Solution28().strStr("aaaaa", "bba"));
+
 
     }
 
