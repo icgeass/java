@@ -1,7 +1,6 @@
 package com.zeroq6.java.leetcode.solution;
 
 
-import com.alibaba.fastjson.JSON;
 import com.zeroq6.java.leetcode.solution.help.ListNode;
 
 
@@ -16,7 +15,7 @@ import com.zeroq6.java.leetcode.solution.help.ListNode;
  * 输入：1->2->4, 1->3->4
  * 输出：1->1->2->3->4->4
  */
-public class Soultion21 {
+public class Solution21 {
 
 
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
@@ -96,10 +95,10 @@ public class Soultion21 {
 
 
     public static void main(String[] args) {
-        ListNode.printListNode(new Soultion21().mergeTwoLists(ListNode.genListNode(1, 2, 4), ListNode.genListNode(1, 3, 4)));
-        ListNode.printListNode(new Soultion21().mergeTwoLists(ListNode.genListNode(), ListNode.genListNode(1, 3, 4)));
-        ListNode.printListNode(new Soultion21().mergeTwoLists(ListNode.genListNode(1, 3, 6, 9), ListNode.genListNode(6)));
-        ListNode.printListNode(new Soultion21().mergeTwoLists(ListNode.genListNode(3, 6, 9), ListNode.genListNode()));
+        ListNode.printListNode(new Solution21().mergeTwoLists(ListNode.genListNode(1, 2, 4), ListNode.genListNode(1, 3, 4)));
+        ListNode.printListNode(new Solution21().mergeTwoLists(ListNode.genListNode(), ListNode.genListNode(1, 3, 4)));
+        ListNode.printListNode(new Solution21().mergeTwoLists(ListNode.genListNode(1, 3, 6, 9), ListNode.genListNode(6)));
+        ListNode.printListNode(new Solution21().mergeTwoLists(ListNode.genListNode(3, 6, 9), ListNode.genListNode()));
 
 
     }
