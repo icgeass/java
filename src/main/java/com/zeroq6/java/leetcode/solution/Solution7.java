@@ -44,7 +44,7 @@ public class Solution7 {
                     return 0;
                 }
             } else if (x < 0) {
-                if (result < (Integer.MAX_VALUE - tmp2) / 10) {
+                if (result < (Integer.MIN_VALUE - tmp2) / 10) {
                     return 0;
                 }
             }
@@ -58,7 +58,7 @@ public class Solution7 {
                 return 0;
             }
         } else if (x < 0) {
-            if (result < (Integer.MAX_VALUE - tmp2) / 10) {
+            if (result < (Integer.MIN_VALUE - tmp2) / 10) {
                 return 0;
             }
         }
@@ -80,6 +80,11 @@ public class Solution7 {
         System.out.println(new Solution7().reverse(123456));
         System.out.println(new Solution7().reverse(-123456));
         System.out.println(new Solution7().reverse(1534236469));
+        System.out.println(new Solution7().reverse(-1534236469));
+
+        System.out.println(new Solution7().reverse(Integer.MAX_VALUE));
+        System.out.println(new Solution7().reverse(Integer.MIN_VALUE));
+
 
     }
 }
