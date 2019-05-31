@@ -52,17 +52,18 @@ public class Solution7 {
             x = tmp1;
         }
         // 检查越界
+        tmp2 = x % 10;
         if (x > 0) {
-            if (result > (Integer.MAX_VALUE - x % 10) / 10) {
+            if (result > (Integer.MAX_VALUE - tmp2) / 10) {
                 return 0;
             }
         } else if (x < 0) {
-            if (result < (Integer.MAX_VALUE - x % 10) / 10) {
+            if (result < (Integer.MAX_VALUE - tmp2) / 10) {
                 return 0;
             }
         }
         // 最后一个数
-        result = result * 10 + x % 10;
+        result = result * 10 + tmp2;
         return result;
 
     }
@@ -77,6 +78,7 @@ public class Solution7 {
 
         System.out.println(new Solution7().reverse(12300));
         System.out.println(new Solution7().reverse(123456));
+        System.out.println(new Solution7().reverse(-123456));
         System.out.println(new Solution7().reverse(1534236469));
 
     }
