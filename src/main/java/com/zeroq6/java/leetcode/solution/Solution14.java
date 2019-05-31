@@ -20,6 +20,12 @@ package com.zeroq6.java.leetcode.solution;
  * 说明:
  * <p>
  * 所有输入只包含小写字母 a-z 。
+ *
+ * 第一次错误
+ *
+ * 查找到不相等未跳出外层循环
+ *
+ *
  */
 public class Solution14 {
 
@@ -35,18 +41,15 @@ public class Solution14 {
             len = len > length ? length : len;
         }
         // 查找相同
+        lab:
         for (int i = 0; i < len; i++) {
             char ch = strs[0].charAt(i);
-            boolean flag = true;
             for (int j = 1; j < strs.length; j++) {
                 if(ch != strs[j].charAt(i)){
-                    flag = false;
-                    break;
+                    break lab;
                 }
             }
-            if(flag){
-                result = result.concat(ch + "");
-            }
+            result = result.concat(ch + "");
         }
         return result;
 
@@ -57,6 +60,10 @@ public class Solution14 {
         System.out.println(new Solution14().longestCommonPrefix(new String[]{"flower","flow","flight"}));
 
         System.out.println(new Solution14().longestCommonPrefix(new String[]{"dog","racecar","car"}));
+
+        System.out.println(new Solution14().longestCommonPrefix(new String[]{"aca","cba"}));
+
+
 
     }
 }
