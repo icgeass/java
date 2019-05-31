@@ -25,6 +25,9 @@ public class Solution14 {
 
     public String longestCommonPrefix(String[] strs) {
         String result = "";
+        if(null == strs || strs.length == 0){
+            return result;
+        }
         int len = strs[0].length();  // 字符串数组中最小长度字符串长度
         // 查找最小长度
         for (int i = 1; i < strs.length; i++) {
