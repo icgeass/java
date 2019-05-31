@@ -1,6 +1,8 @@
 package com.zeroq6.java.leetcode.solution;
 
 
+import com.zeroq6.java.leetcode.solution.help.ListNode;
+
 /**
  * https://leetcode-cn.com/problems/add-two-numbers/
  * <p>
@@ -38,37 +40,8 @@ package com.zeroq6.java.leetcode.solution;
  * <p>
  * 改成long不可取,同样有越界的可能
  * 所以用链表从左至右对位相加进位方式构造链表
- *
  */
 
-
-/**
- * Definition for singly-linked list.
- */
-class ListNode {
-    int val;
-    ListNode next;
-
-    ListNode(int x) {
-        val = x;
-    }
-
-    public int getVal() {
-        return val;
-    }
-
-    public void setVal(int val) {
-        this.val = val;
-    }
-
-    public ListNode getNext() {
-        return next;
-    }
-
-    public void setNext(ListNode next) {
-        this.next = next;
-    }
-}
 
 public class Solution2 {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
@@ -106,36 +79,15 @@ public class Solution2 {
     }
 
 
-    public static ListNode genListNode(int... arr) {
-        if (null == arr || arr.length == 0) {
-            return null;
-        }
-        ListNode re = new ListNode(arr[0]);
-        ListNode tmp = re;
-        for (int i = 1; i < arr.length; i++) {
-            tmp.next = new ListNode(arr[i]);
-            tmp = tmp.next;
-        }
-        return re;
-    }
-
-
     public static void main(String[] args) {
-        ListNode l1 = genListNode(9);
+        ListNode l1 = ListNode.genListNode(9);
 
-        ListNode l2 = genListNode(1, 9, 9, 9, 9, 9, 9, 9, 9, 9);
+        ListNode l2 = ListNode.genListNode(1, 9, 9, 9, 9, 9, 9, 9, 9, 9);
 
 
         ListNode result = new Solution2().addTwoNumbers(l1, l2);
 
-        ListNode tmp = result;
-        StringBuilder stringBuilder = new StringBuilder("[");
-        while (null != tmp) {
-            stringBuilder.append(tmp.val).append(",");
-            tmp = tmp.next;
-        }
-        stringBuilder.deleteCharAt(stringBuilder.length() - 1).append("]");
-        System.out.println(stringBuilder.toString());
+        ListNode.printListNode(result);
 
 
         System.out.println(Integer.MAX_VALUE);
