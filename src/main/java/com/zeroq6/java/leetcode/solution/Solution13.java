@@ -45,6 +45,8 @@ package com.zeroq6.java.leetcode.solution;
  * 输入: "MCMXCIV"
  * 输出: 1994
  * 解释: M = 1000, CM = 900, XC = 90, IV = 4.
+ *
+ * 假定输入的数字一定是罗马数字
  */
 public class Solution13 {
 
@@ -68,17 +70,14 @@ public class Solution13 {
             tmp = nums[indexOfChar(chars, s.charAt(i))];
             if (i < len - 1) {
                 tmp2 = nums[indexOfChar(chars, s.charAt(i + 1))];
-                if (tmp2 == tmp * 5 || tmp2 == tmp * 10) {
+                if (tmp2 > tmp) {
                     sum = sum + tmp2 - tmp;
                     i++;
                     continue;
                 }
             }
             sum += tmp;
-
         }
-
-
         return sum;
     }
 
