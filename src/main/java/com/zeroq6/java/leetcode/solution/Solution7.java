@@ -34,10 +34,34 @@ package com.zeroq6.java.leetcode.solution;
 public class Solution7 {
     public int reverse(int x) {
         int result = 0;
-        while (x / 10 != 0) {
-            result = result * 10 + x % 10;
-            x = x / 10;
+        int tmp1 = 0; // 暂存 x/10
+        int tmp2 = 0; // 暂存 x%10
+        while ((tmp1 = x / 10) != 0) {
+            tmp2 = x % 10;
+            // 检查越界
+            if (x > 0) {
+                if (result > (Integer.MAX_VALUE - tmp2) / 10) {
+                    return 0;
+                }
+            } else if (x < 0) {
+                if (result < (Integer.MAX_VALUE - tmp2) / 10) {
+                    return 0;
+                }
+            }
+            result = result * 10 + tmp2;
+            x = tmp1;
         }
+        // 检查越界
+        if (x > 0) {
+            if (result > (Integer.MAX_VALUE - x % 10) / 10) {
+                return 0;
+            }
+        } else if (x < 0) {
+            if (result < (Integer.MAX_VALUE - x % 10) / 10) {
+                return 0;
+            }
+        }
+        // 最后一个数
         result = result * 10 + x % 10;
         return result;
 
@@ -50,6 +74,9 @@ public class Solution7 {
         System.out.println((int) (-Math.pow(2, 31)) == Integer.MIN_VALUE);
         System.out.println(Integer.MAX_VALUE + "," + Integer.MIN_VALUE);
 
+
+        System.out.println(new Solution7().reverse(12300));
+        System.out.println(new Solution7().reverse(123456));
         System.out.println(new Solution7().reverse(1534236469));
 
     }
