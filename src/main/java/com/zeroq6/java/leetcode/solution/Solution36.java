@@ -56,6 +56,13 @@ import com.alibaba.fastjson.JSON;
  * 只需要根据以上规则，验证已经填入的数字是否有效即可。
  * 给定数独序列只包含数字 1-9 和字符 '.' 。
  * 给定数独永远是 9x9 形式的。
+ *
+ * 第一次错误：
+ *
+ * filling[pos] = pos; // 否则占用该位置
+ * 应为
+ * filling[pos] = tmp; // 否则占用该位置
+ *
  */
 public class Solution36 {
     public boolean isValidSudoku(char[][] board) {
@@ -99,7 +106,7 @@ public class Solution36 {
             if (filling[pos] != 0) { // 如果该位置被占用，说明重复了
                 return false;
             } else {
-                filling[pos] = pos; // 否则占用该位置
+                filling[pos] = tmp; // 否则占用该位置
             }
 
         }
@@ -112,15 +119,27 @@ public class Solution36 {
         System.out.println((int) '9');
         System.out.println(JSON.toJSONString(new int[5]));
 
-        char[] chars0 = new char[]{'5', '3', '.', '.', '7', '.', '.', '.', '.'};
-        char[] chars1 = new char[]{'6', '.', '.', '1', '9', '5', '.', '.', '.'};
-        char[] chars2 = new char[]{'.', '9', '8', '.', '.', '.', '.', '6', '.'};
-        char[] chars3 = new char[]{'8', '.', '.', '.', '6', '.', '.', '.', '3'};
-        char[] chars4 = new char[]{'4', '.', '.', '8', '.', '3', '.', '.', '1'};
-        char[] chars5 = new char[]{'7', '.', '.', '.', '2', '.', '.', '.', '6'};
-        char[] chars6 = new char[]{'.', '6', '.', '.', '.', '.', '2', '8', '.'};
-        char[] chars7 = new char[]{'.', '.', '.', '4', '1', '9', '.', '.', '5'};
-        char[] chars8 = new char[]{'.', '.', '.', '.', '8', '.', '.', '7', '9'};
+//        char[] chars0 = new char[]{'5', '3', '.', '.', '7', '.', '.', '.', '.'};
+//        char[] chars1 = new char[]{'6', '.', '.', '1', '9', '5', '.', '.', '.'};
+//        char[] chars2 = new char[]{'.', '9', '8', '.', '.', '.', '.', '6', '.'};
+//        char[] chars3 = new char[]{'8', '.', '.', '.', '6', '.', '.', '.', '3'};
+//        char[] chars4 = new char[]{'4', '.', '.', '8', '.', '3', '.', '.', '1'};
+//        char[] chars5 = new char[]{'7', '.', '.', '.', '2', '.', '.', '.', '6'};
+//        char[] chars6 = new char[]{'.', '6', '.', '.', '.', '.', '2', '8', '.'};
+//        char[] chars7 = new char[]{'.', '.', '.', '4', '1', '9', '.', '.', '5'};
+//        char[] chars8 = new char[]{'.', '.', '.', '.', '8', '.', '.', '7', '9'};
+
+
+        char[] chars0 = new char[]{'.','.','.','.','.','.','.','.','.'};
+        char[] chars1 = new char[]{'.','.','.','3','.','.','5','.','.'};
+        char[] chars2 = new char[]{'.','.','.','.','.','.','.','.','.'};
+        char[] chars3 = new char[]{'.','.','.','8','.','.','.','.','.'};
+        char[] chars4 = new char[]{'.','.','.','.','1','1','6','.','.'};
+        char[] chars5 = new char[]{'.','.','.','.','.','.','.','.','.'};
+        char[] chars6 = new char[]{'.','.','.','.','.','.','1','.','.'};
+        char[] chars7 = new char[]{'.','.','.','.','.','.','.','.','7'};
+        char[] chars8 = new char[]{'.','.','.','.','.','.','.','4','.'};
+
         System.out.println(new Solution36().isValidSudoku(new char[][]{chars0, chars1, chars2, chars3, chars4, chars5, chars6, chars7, chars8}));
 
 
