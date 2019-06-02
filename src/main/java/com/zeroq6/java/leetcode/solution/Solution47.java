@@ -4,32 +4,26 @@ package com.zeroq6.java.leetcode.solution;
 import com.alibaba.fastjson.JSON;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
- * https://leetcode-cn.com/problems/permutations/
+ * https://leetcode-cn.com/problems/permutations-ii/
  * <p>
- * 给定一个没有重复数字的序列，返回其所有可能的全排列。
+ * <p>
+ * 给定一个可包含重复数字的序列，返回所有不重复的全排列。
  * <p>
  * 示例:
  * <p>
- * 输入: [1,2,3]
+ * 输入: [1,1,2]
  * 输出:
  * [
- * [1,2,3],
- * [1,3,2],
- * [2,1,3],
- * [2,3,1],
- * [3,1,2],
- * [3,2,1]
+ * [1,1,2],
+ * [1,2,1],
+ * [2,1,1]
  * ]
  */
-public class Solution46 {
-
-    //
-    public List<List<Integer>> permute(int[] nums) {
+public class Solution47 {
+    public List<List<Integer>> permuteUnique(int[] nums) {
         List<Integer> transfer = new ArrayList<>();
         if (null == nums) {
             nums = new int[0];
@@ -52,8 +46,13 @@ public class Solution46 {
             result.add(list);
             return result;
         }
+        List<Integer> duplicate = new ArrayList<Integer>();
         //如果size大于1
         for (Integer integer : list) {
+            if(duplicate.contains(integer)){
+                continue;
+            }
+            duplicate.add(integer);
             // 去除当前integer
             List<Integer> tmp = new ArrayList<>();
             tmp.addAll(list);
@@ -70,14 +69,12 @@ public class Solution46 {
 
     }
 
-
     public static void main(String[] args) {
-        System.out.println(JSON.toJSONString(new Solution46().permute(null)));
-        System.out.println(JSON.toJSONString(new Solution46().permute(new int[]{})));
-        System.out.println(JSON.toJSONString(new Solution46().permute(new int[]{1})));
-        System.out.println(JSON.toJSONString(new Solution46().permute(new int[]{1, 2})));
-        System.out.println(JSON.toJSONString(new Solution46().permute(new int[]{1, 2, 3})));
-        System.out.println(JSON.toJSONString(new Solution46().permute(new int[]{1, 1, 2})));
-
+        System.out.println(JSON.toJSONString(new Solution47().permuteUnique(null)));
+        System.out.println(JSON.toJSONString(new Solution47().permuteUnique(new int[]{})));
+        System.out.println(JSON.toJSONString(new Solution47().permuteUnique(new int[]{1})));
+        System.out.println(JSON.toJSONString(new Solution47().permuteUnique(new int[]{1, 2})));
+        System.out.println(JSON.toJSONString(new Solution47().permuteUnique(new int[]{1, 2, 3})));
+        System.out.println(JSON.toJSONString(new Solution47().permuteUnique(new int[]{1, 1, 2})));
     }
 }
