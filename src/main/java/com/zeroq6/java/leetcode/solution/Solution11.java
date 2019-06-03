@@ -32,7 +32,7 @@ public class Solution11 {
         int tmp = 0;
         int x = 0, y = 0;
         for (int i = 0; i < height.length - 1; i++) {
-            for (int j = 1; j < height.length; j++) {
+            for (int j = i + 1; j < height.length; j++) {
                 x = height[i];
                 y = height[j];
                 tmp = (x < y ? x : y) * (j - i);
