@@ -43,6 +43,10 @@ public class ListNode {
     }
 
     public static String printListNode(ListNode result){
+        if(null == result){
+            System.out.println("[]");
+            return "[]";
+        }
         ListNode tmp = result;
         StringBuilder stringBuilder = new StringBuilder("[");
         while (null != tmp) {
@@ -50,6 +54,7 @@ public class ListNode {
             tmp = tmp.next;
         }
         stringBuilder.deleteCharAt(stringBuilder.length() - 1).append("]");
+        System.out.println(stringBuilder.toString());
         return stringBuilder.toString();
     }
 
