@@ -32,7 +32,6 @@ public class Solution19 {
         }
         ListNode targetPrev = null;
         ListNode target = head;
-        ListNode targetNext = head.next;
 
         ListNode tmp = head;
 
@@ -43,7 +42,7 @@ public class Solution19 {
                 if (tmp.next == null) { // 说明假设成立
                     // 删除target节点
                     if (targetPrev != null) {
-                        targetPrev.next = targetNext;
+                        targetPrev.next = target.next;
                     }
                     break;
                 } else {
@@ -51,9 +50,6 @@ public class Solution19 {
                     // 上一次假设错误,重新假定上一次假定的下一个点
                     targetPrev = target;
                     target = target.next;
-                    if (null != target) {
-                        targetNext = target.next;
-                    }
                 }
 
             }
