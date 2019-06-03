@@ -42,7 +42,7 @@ public class ListNode {
         return re;
     }
 
-    public static void printListNode(ListNode result){
+    public static String printListNode(ListNode result){
         ListNode tmp = result;
         StringBuilder stringBuilder = new StringBuilder("[");
         while (null != tmp) {
@@ -50,7 +50,12 @@ public class ListNode {
             tmp = tmp.next;
         }
         stringBuilder.deleteCharAt(stringBuilder.length() - 1).append("]");
-        System.out.println(stringBuilder.toString());
+        return stringBuilder.toString();
+    }
+
+    @Override
+    public String toString() {
+        return printListNode(this);
     }
 }
 
