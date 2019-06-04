@@ -68,10 +68,10 @@ public class Solution53 {
         boolean firstTime = true;
         int len = nums.length;
         for (int i = 0; i < len; i++) {
-            int[] result = new int[len - i];
             int sum = nums[i]; // 暂存当前累加
             int tmp = 0; // 用于判断每次累加结果,数组
             if (i < len - 1) {
+                int[] result = new int[len - i];
                 result[0] = sum;
                 for (int j = i + 1; j < len; j++) {
                     sum = sum + nums[j];
