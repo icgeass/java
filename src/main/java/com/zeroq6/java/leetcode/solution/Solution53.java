@@ -17,13 +17,28 @@ import com.zeroq6.java.leetcode.solution.help.ArrayHelper;
  * 进阶:
  * <p>
  * 如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。
+ * <p>
+ * <p>
+ * 第一次错误:
+ * <p>
+ * 未考虑数组长度为1的情况
+ * <p>
+ * 输入
+ * [1]
+ * 输出
+ * 0
+ * 预期结果
+ * 1
  */
 public class Solution53 {
 
     public int maxSubArray(int[] nums) {
         int max = 0;
-        boolean flag = true;
+        boolean firstTime = true;
         int len = nums.length;
+        if (len == 1) {
+            return nums[0];
+        }
         for (int i = 0; i < len - 1; i++) {
             int[] result = new int[len - 1 - i];
             int sum = nums[i];
@@ -31,23 +46,23 @@ public class Solution53 {
                 sum = sum + nums[j];
                 result[j - i - 1] = sum;
             }
+            //
             int tmp = result[0];
             for (int k = 1; k < result.length; k++) {
                 tmp = tmp < result[k] ? result[k] : tmp;
             }
-            if (flag) {
+            if (firstTime) {
                 max = tmp;
-                flag = false;
+                firstTime = false;
             } else {
                 max = max < tmp ? tmp : max;
             }
         }
-
         return max;
     }
 
     public static void main(String[] args) {
-        System.out.println(new Solution53().maxSubArray(ArrayHelper.genIntArray(1, 2, 3)));
+        System.out.println(new Solution53().maxSubArray(ArrayHelper.genIntArray(1)));
         System.out.println(new Solution53().maxSubArray(ArrayHelper.genIntArray(-2, 1, -3, 4, -1, 2, 1, -5, 40)));
 
     }
