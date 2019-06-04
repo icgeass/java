@@ -29,6 +29,37 @@ import com.zeroq6.java.leetcode.solution.help.ArrayHelper;
  * 0
  * 预期结果
  * 1
+ * <p>
+ * <p>
+ * 第二次错误
+ * 外层循环应该到len-1
+ * <p>
+ * 输入
+ * [-2,1]
+ * 输出
+ * -1
+ * 预期结果
+ * 1
+ * <p>
+ * <p>
+ * 第三次错误
+ * 暂存累加结果数组长度错误
+ * <p>
+ * 输入
+ * [-2,-1]
+ * 输出
+ * 0
+ * 预期结果
+ * -1
+ *
+ * 第四次错误
+ * 暂存累加结果数组长度错误-未考虑外层第一个数就是最大的情况
+ * 输入
+ * [-1,-2]
+ * 输出
+ * -2
+ * 预期结果
+ * -1
  */
 public class Solution53 {
 
@@ -36,20 +67,23 @@ public class Solution53 {
         int max = 0;
         boolean firstTime = true;
         int len = nums.length;
-        if (len == 1) {
-            return nums[0];
-        }
-        for (int i = 0; i < len - 1; i++) {
-            int[] result = new int[len - 1 - i];
-            int sum = nums[i];
-            for (int j = i + 1; j < len; j++) {
-                sum = sum + nums[j];
-                result[j - i - 1] = sum;
-            }
-            //
-            int tmp = result[0];
-            for (int k = 1; k < result.length; k++) {
-                tmp = tmp < result[k] ? result[k] : tmp;
+        for (int i = 0; i < len; i++) {
+            int[] result = new int[len - i];
+            int sum = nums[i]; // 暂存当前累加
+            int tmp = 0; // 用于判断每次累加结果,数组
+            if (i < len - 1) {
+                result[0] = sum;
+                for (int j = i + 1; j < len; j++) {
+                    sum = sum + nums[j];
+                    result[j - i] = sum; // 将当前累加结果放入数组
+                }
+                //
+                tmp = result[0];
+                for (int k = 1; k < result.length; k++) {
+                    tmp = tmp < result[k] ? result[k] : tmp;
+                }
+            } else {
+                tmp = sum;
             }
             if (firstTime) {
                 max = tmp;
@@ -62,8 +96,12 @@ public class Solution53 {
     }
 
     public static void main(String[] args) {
+
+
+        System.out.println(new Solution53().maxSubArray(ArrayHelper.genIntArray(-2, -1)));
+        System.out.println(new Solution53().maxSubArray(ArrayHelper.genIntArray(-2, 1)));
         System.out.println(new Solution53().maxSubArray(ArrayHelper.genIntArray(1)));
-        System.out.println(new Solution53().maxSubArray(ArrayHelper.genIntArray(-2, 1, -3, 4, -1, 2, 1, -5, 40)));
+        System.out.println(new Solution53().maxSubArray(ArrayHelper.genIntArray(-2, 1, -3, 4, -1, 2, 1, -5, 4)));
 
     }
 }
