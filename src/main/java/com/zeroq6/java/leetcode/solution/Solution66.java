@@ -18,14 +18,9 @@ public class Solution66 {
 
 
     public int[] plusOne(int[] digits) {
-        int nextAdd = 0;
-        int tmp = 0;
+        int nextAdd = 1;
         for (int i = digits.length - 1; i > -1; i--) {
-            if (i == digits.length - 1) {
-                tmp = digits[i] + 1 + nextAdd;
-            } else {
-                tmp = digits[i] + nextAdd;
-            }
+            int tmp = digits[i] + nextAdd;
             digits[i] = tmp % 10;
             nextAdd = tmp / 10;
             if (nextAdd == 0) {
@@ -46,11 +41,13 @@ public class Solution66 {
     }
 
     public static void main(String[] args) {
+        System.out.println(JSON.toJSONString(new Solution66().plusOne(ArrayHelper.genIntArray(0))));
         System.out.println(JSON.toJSONString(new Solution66().plusOne(ArrayHelper.genIntArray(1))));
         System.out.println(JSON.toJSONString(new Solution66().plusOne(ArrayHelper.genIntArray(9))));
         System.out.println(JSON.toJSONString(new Solution66().plusOne(ArrayHelper.genIntArray(1, 2, 3))));
         System.out.println(JSON.toJSONString(new Solution66().plusOne(ArrayHelper.genIntArray(1, 2, 9))));
         System.out.println(JSON.toJSONString(new Solution66().plusOne(ArrayHelper.genIntArray(9, 9, 9))));
+        System.out.println(JSON.toJSONString(new Solution66().plusOne(ArrayHelper.genIntArray(9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9))));
 
 
     }
