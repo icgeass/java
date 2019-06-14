@@ -32,6 +32,7 @@ public class Solution83 {
                     head.next = null;
                 } else {
                     head.next = head.next.next; // 去掉head.next节点
+                    continue;
                 }
             }
 
@@ -46,6 +47,9 @@ public class Solution83 {
         ListNode.printListNode(new Solution83().deleteDuplicates(ListNode.genListNode(1, 1, 2)));
 
         ListNode.printListNode(new Solution83().deleteDuplicates(ListNode.genListNode(1, 1, 2, 3, 3)));
+
+        ListNode.printListNode(new Solution83().deleteDuplicates(ListNode.genListNode(1, 1, 1)));
+
 
 
     }
