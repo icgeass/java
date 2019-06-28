@@ -1,4 +1,4 @@
-package com.zeroq6.java.leetcode.solution;
+package com.zeroq6.java.leetcode.tag.stack;
 
 
 /**
@@ -43,9 +43,9 @@ public class Solution20 {
         int len = s.length();
         for (int i = 0; i < len; i++) {
             char ch = s.charAt(i);
-            stringBuilder.append(ch);
+            stringBuilder.append(ch); // 入栈
             int stringBuilderLen = stringBuilder.length();
-            if (stringBuilderLen > 1) {
+            if (stringBuilderLen > 1) {  // 出栈
                 char matchTo = stringBuilder.charAt(stringBuilderLen - 2);
                 if (matchTo == '[' && ch == ']' || matchTo == '{' && ch == '}' || matchTo == '(' && ch == ')') {
                     stringBuilder.delete(stringBuilderLen - 2, stringBuilderLen);
