@@ -30,6 +30,18 @@ public class Solution42 {
      *
      * @param height
      * @return
+     *
+     *
+     * 复杂性分析
+     * 时间复杂度：O(n)
+     *
+     * 存储最大高度数组，需要两次遍历，每次 O(n)
+     * 最终使用存储的数据更新，O(n)
+     *
+     * 空间复杂度：O(n) 额外空间。
+     *
+     *
+     *
      */
     public int trap2(int[] height) {
         if (null == height || height.length < 3) {
