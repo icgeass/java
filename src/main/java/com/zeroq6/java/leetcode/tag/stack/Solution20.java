@@ -43,14 +43,15 @@ public class Solution20 {
         int len = s.length();
         for (int i = 0; i < len; i++) {
             char ch = s.charAt(i);
-            stringBuilder.append(ch); // 入栈
             int stringBuilderLen = stringBuilder.length();
-            if (stringBuilderLen > 1) {  // 出栈
-                char matchTo = stringBuilder.charAt(stringBuilderLen - 2);
+            if (stringBuilderLen > 0) {  // 出栈
+                char matchTo = stringBuilder.charAt(stringBuilderLen - 1);
                 if (matchTo == '[' && ch == ']' || matchTo == '{' && ch == '}' || matchTo == '(' && ch == ')') {
-                    stringBuilder.delete(stringBuilderLen - 2, stringBuilderLen);
+                    stringBuilder.deleteCharAt(stringBuilderLen - 1);
+                    continue;
                 }
             }
+            stringBuilder.append(ch); // 入栈
         }
 
         return stringBuilder.length() == 0;
@@ -63,7 +64,6 @@ public class Solution20 {
         System.out.println(new Solution20().isValid("(]"));
         System.out.println(new Solution20().isValid("([)]"));
         System.out.println(new Solution20().isValid("{[]}"));
-
 
 
     }
