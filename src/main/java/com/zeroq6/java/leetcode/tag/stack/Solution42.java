@@ -87,28 +87,30 @@ public class Solution42 {
      * @return
      */
     public int trap1(int[] height) {
+        // 方条数量小于等于2没法盛雨水
         if (null == height || height.length < 3) {
             return 0;
         }
         int sum = 0;
+        // 第一个方条和最后一个方条没法盛雨水
         for (int i = 1; i < height.length - 1; i++) {
             // 找出左边最高
-            int left = 0;
+            int leftMax = 0;
             for (int j = 0; j < i; j++) {
-                if (height[j] > left) {
-                    left = height[j];
+                if (height[j] > leftMax) {
+                    leftMax = height[j];
                 }
             }
             // 当前
             int curr = height[i];
             // 找出右边最高
-            int right = 0;
+            int rightMax = 0;
             for (int k = i + 1; k < height.length; k++) {
-                if (height[k] > right) {
-                    right = height[k];
+                if (height[k] > rightMax) {
+                    rightMax = height[k];
                 }
             }
-            int num = Math.min(left, right) - curr;
+            int num = Math.min(leftMax, rightMax) - curr;
             if (num > 0) {
                 sum += num;
             }
@@ -128,6 +130,7 @@ public class Solution42 {
         }
         int sum = 0;
         final int indexNotSet = -1;
+        // 每次加上空位，直到baseLine等于maxHeight
         while (baseLine < maxHeight) {
             boolean work = false;
             int indexBegin = indexNotSet;
@@ -155,7 +158,7 @@ public class Solution42 {
                     indexEnd = i; // 发现空位则设置结束并添加雨量
                     sum += (indexEnd - indexBegin - 1);
                     // 重置
-                    indexBegin = indexEnd;
+                    indexBegin = indexEnd; // 下一个空位的开始位置就是上一个空位结束的位置
                     indexEnd = indexNotSet;
                     baseLineFind = false;
                 }
