@@ -45,49 +45,50 @@ package com.zeroq6.java.leetcode.tag.stack;
 public class Solution71 {
 
     public String simplifyPath(String path) {
+        if (path.charAt(path.length() - 1) != '/') {
+            path = path + "/"; // 用于当出现/..或者/.结尾时能够兼容处理
+        }
         StringBuilder stringBuilder = new StringBuilder(path.charAt(0) + "");
+
 
         for (int i = 1; i < path.length(); i++) {
             char ch = path.charAt(i);
             int len = stringBuilder.length();
-            // 删除父目录
-            if (ch == '.') {
-                if (stringBuilder.charAt(len - 1) == '.') {
-                    int index = stringBuilder.lastIndexOf("/");
-                    if (index == 0) {
-                        stringBuilder.delete(index + 1, len); // 不删除/（/..的情况）
-                    } else {
-                        // 对于 /a/b/.. 或者 /b/..
-                        stringBuilder.delete(index, len); // 删除 /..
-                        if (stringBuilder.lastIndexOf("/") == 0) {
-                            stringBuilder.delete(stringBuilder.lastIndexOf("/") + 1, stringBuilder.length()); // 删除 b
-                        } else {
-                            stringBuilder.delete(stringBuilder.lastIndexOf("/"), stringBuilder.length());// 删除 /b
-                        }
-                    }
-                    continue;
-                }
-            }
             if (ch == '/') {
-                // 删除重复/
+                // 去掉//
                 if (stringBuilder.charAt(len - 1) == '/') {
                     continue;
                 }
-
-                // 删除.目录
-                if (stringBuilder.charAt(len - 1) == '.') {
-                    stringBuilder.delete(stringBuilder.lastIndexOf("."), len);
+                // 去掉当前路径
+                if (len >= 2 && stringBuilder.charAt(len - 1) == '.' && stringBuilder.charAt(len - 2) == '/') {
+                    stringBuilder.deleteCharAt(len - 1);
+                    continue;
+                }
+                // 去掉父路径
+                if (len >= 3 && stringBuilder.charAt(len - 1) == '.' && stringBuilder.charAt(len - 2) == '.' && stringBuilder.charAt(len - 3) == '/') {
+                    if (len == 3) {
+                        stringBuilder.delete(len - 2, len);
+                    } else {
+                        stringBuilder.delete(len - 3, len);
+                        int lastIndexOfSlash = stringBuilder.lastIndexOf("/"); // 要保证先过滤//，否则删除父目录时可能index错误
+                        stringBuilder.delete(lastIndexOfSlash + 1, stringBuilder.length());
+                    }
+                    continue;
+                }
+                // 删除最后一个/，需要放到最后，否则当以./或者../结尾会无法删除当前目录和父目录
+                if (i == path.length() - 1) {
                     continue;
                 }
             }
             stringBuilder.append(ch);
 
         }
-        String result = stringBuilder.toString();
-        if (result.endsWith(".")) {
-            result = result.substring(0, result.length() - 1);
+        // 处理由于移除父目录，而后面没有出现新目录而末尾出现的/，比如/a/b/../---->/a/
+        int stringBuilderLength = stringBuilder.length();
+        if (stringBuilderLength > 1 && stringBuilder.charAt(stringBuilderLength - 1) == '/') {
+            stringBuilder.delete(stringBuilderLength - 1, stringBuilderLength);
         }
-        return (!result.equals("/")) && result.charAt(result.length() - 1) == '/' ? result.substring(0, result.length() - 1) : result.toString();
+        return stringBuilder.toString();
     }
 
     public static void main(String[] args) {
@@ -98,8 +99,6 @@ public class Solution71 {
         System.out.println(new Solution71().simplifyPath("/a/./b/../../c/"));
         System.out.println(new Solution71().simplifyPath("/a/../../b/../c//.//"));
         System.out.println(new Solution71().simplifyPath("/a//b////c/d//././/.."));
-
-        // 未考虑到
         System.out.println(new Solution71().simplifyPath("/."));
 
     }
