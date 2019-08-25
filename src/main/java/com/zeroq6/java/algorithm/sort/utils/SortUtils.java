@@ -12,6 +12,10 @@ public class SortUtils {
         return arr;
     }
 
+    public static int[] getRandomIntArray() {
+        return getRandomIntArray(10, 100);
+    }
+
     public static int[] getRandomIntArray(int length) {
         return getRandomIntArray(length, 100);
     }
