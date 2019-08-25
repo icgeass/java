@@ -19,8 +19,10 @@ public class BubbleSort {
 
     public int[] bubbleSort(int[] ints) {
         int tmp = 0;
+        boolean swap = false;
         // 外层循环仅仅控制次数，和数字比较无关
         for (int i = 0; i < ints.length - 1; i++) {
+            swap = false;
             // 将ints[j]和ints[j+1]比较，如果j位置数大，则交换；
             // 此时j+1位置已经比j位置大了，再比较j+1位置和j+2位置，最终一次循环会本次最大的放到后面正确的位置
             // -i的原因是每执行一次循环就有一个数放到后面正确的位置，执行i次则后面有i个数已经排好了，不用再比较后面已排号的数
@@ -30,7 +32,13 @@ public class BubbleSort {
                     tmp = ints[j];
                     ints[j] = ints[j + 1];
                     ints[j + 1] = tmp;
+                    swap = true;
                 }
+            }
+            // 如果某次相邻位置没有发生交换，下一次比较的数组比该数组少最后一个数，所以一定也是有序的
+            // break可提高效率
+            if (!swap) {
+                break;
             }
         }
         return ints;
