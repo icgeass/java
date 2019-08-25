@@ -26,9 +26,12 @@ public class SelectSort {
                     minPos = j;
                 }
             }
-            tmp = ints[minPos];
-            ints[minPos] = ints[i];
-            ints[i] = tmp;
+            // 如果i位置就是后面未排序数组的最小值，则不用交换
+            if(minPos != i){
+                tmp = ints[minPos];
+                ints[minPos] = ints[i];
+                ints[i] = tmp;
+            }
         }
         return ints;
 
