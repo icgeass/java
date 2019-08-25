@@ -5,6 +5,10 @@ import java.util.Random;
 
 public class SortUtils {
 
+    private static int MAX_INT = 20;
+
+    private static int INT_ARRAY_LENGTH = 10;
+
     public static int[] getIntArray(int... arr) {
         if (null == arr) {
             return new int[0];
@@ -13,18 +17,25 @@ public class SortUtils {
     }
 
     public static int[] getRandomIntArray() {
-        return getRandomIntArray(10, 100);
+        return getRandomIntArray(INT_ARRAY_LENGTH, MAX_INT, true);
     }
 
     public static int[] getRandomIntArray(int length) {
-        return getRandomIntArray(length, 100);
+        return getRandomIntArray(length, MAX_INT, true);
     }
 
-    public static int[] getRandomIntArray(int length, int maxInt) {
+    public static int[] getRandomIntArray(int length, boolean print) {
+        return getRandomIntArray(length, MAX_INT, print);
+    }
+
+    public static int[] getRandomIntArray(int length, int maxInt, boolean print) {
         Random random = new Random();
         int[] result = new int[length];
         for (int i = 0; i < length; i++) {
             result[i] = random.nextInt(maxInt + 1);
+        }
+        if (print) {
+            print(result);
         }
         return result;
     }

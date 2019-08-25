@@ -38,6 +38,6 @@ public class BubbleSort {
     }
 
     public static void main(String[] args) {
-        SortUtils.print(new BubbleSort().bubbleSort(SortUtils.getRandomIntArray(10, 100)));
+        SortUtils.print(new BubbleSort().bubbleSort(SortUtils.getRandomIntArray()));
     }
 }

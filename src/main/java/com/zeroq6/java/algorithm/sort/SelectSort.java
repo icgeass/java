@@ -36,7 +36,7 @@ public class SelectSort {
     }
 
     public static void main(String[] args) {
-        SortUtils.print(new SelectSort().selectSort(SortUtils.getRandomIntArray(10, 100)));
+        SortUtils.print(new SelectSort().selectSort(SortUtils.getRandomIntArray()));
     }
 
 

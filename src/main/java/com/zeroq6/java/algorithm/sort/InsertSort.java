@@ -7,7 +7,7 @@ import com.zeroq6.java.algorithm.sort.utils.SortUtils;
  * 插入排序
  * <p>
  * 将每次待排序数插入已排序列表中正确位置
- *
+ * <p>
  * 时间复杂度N^2
  */
 public class InsertSort {
@@ -31,7 +31,7 @@ public class InsertSort {
 
 
     public static void main(String[] args) {
-        SortUtils.print(new InsertSort().insertSort(SortUtils.getRandomIntArray(10, 10)));
+        SortUtils.print(new InsertSort().insertSort(SortUtils.getRandomIntArray()));
     }
 
 }

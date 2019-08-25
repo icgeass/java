@@ -72,7 +72,7 @@ public class QuickSort {
 
     public static void main(String[] args) {
 
-        SortUtils.print(new QuickSort().quickSort(SortUtils.getRandomIntArray(10, 100)));
+        SortUtils.print(new QuickSort().quickSort(SortUtils.getRandomIntArray()));
     }
 }
 
