@@ -24,8 +24,8 @@ public class SortUtils {
         return getRandomIntArray(length, MAX_INT, true);
     }
 
-    public static int[] getRandomIntArray(int length, boolean print) {
-        return getRandomIntArray(length, MAX_INT, print);
+    public static int[] getRandomIntArray(int length, int maxInt) {
+        return getRandomIntArray(length, maxInt, true);
     }
 
     public static int[] getRandomIntArray(int length, int maxInt, boolean print) {
