@@ -1,4 +1,4 @@
-package com.zeroq6.java.leetcode.tag.stack;
+package com.zeroq6.java.leetcode.solution;
 
 import com.zeroq6.java.leetcode.solution.help.ArrayHelper;
 
