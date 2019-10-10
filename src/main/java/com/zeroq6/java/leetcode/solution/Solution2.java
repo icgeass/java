@@ -43,6 +43,9 @@ import com.zeroq6.java.leetcode.solution.help.ListNode;
  */
 
 
+/**
+ * 大整数相加，从个位开始到高位，有进位则加到下一位
+ */
 public class Solution2 {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode result = null;
