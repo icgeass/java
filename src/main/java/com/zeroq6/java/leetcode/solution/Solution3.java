@@ -74,15 +74,46 @@ public class Solution3 {
         int len = s.length();
         List<Character> characterList = new ArrayList<>();
         while (begin < len && end < len) {
-            // 不包含，end指针后移，更新最大长度
+            // 不包含，此时begin(含)和end（含）之前的序列是各不相同的，可以计算长度。
+            // 将end指向的字符加入集合，并end指针后移，更新最大长度
             if (!characterList.contains(s.charAt(end))) {
                 characterList.add(s.charAt(end++));
                 // 由于end已经++了，所以不需要使用end-begin+1
                 result = Math.max(result, end - begin);
             } else {
-                // 包含则begin指针后移，删除begin指向的值
+                // 包含说明之前集合中的序列 和 当前end指向的字符重复了
+                // begin指针后移（不移动end，因为由于加入了end重复了，所以end及其以后的字符一定都有重复的），删除begin指向的值，continue
                 characterList.remove(Character.valueOf(s.charAt(begin++)));
             }
+        }
+        return result;
+
+    }
+
+
+    /**
+     * 使用滑动窗口的方式--优化
+     * <p>
+     * <p>
+     * 在lengthOfLongestSubstring1中，由于加入了end，而导致了重复，重复的位置可能是原不重复序列的第一个位置，
+     * 也可能是原不重复序列的最后一个位置，考虑极端情况重复字符是原不重复序列的最后一个，比如 abcd dea
+     * 此时没有必要 依次 移动滑动窗口的start，直接将start移动到原不重复序列的下一个即可，对于abcd dea来说就是第二个d
+     *
+     * @param s
+     * @return
+     */
+    public int lengthOfLongestSubstring2(String s) {
+        int result = 0;
+        int len = s.length();
+        Map<Character, Integer> map = new HashMap<>();
+        for (int begin = 0, end = 0; end < len; end++) {
+            if (map.containsKey(s.charAt(end))) {
+                // 考虑abba的情况，begin已经离开导致重复的滑动窗口了，有重复也不能用之前记录的重复位置（下一个），而用begin
+                begin = Math.max(begin, map.get(s.charAt(end)));
+            }
+            result = Math.max(result, end - begin + 1);
+            map.put(s.charAt(end), end + 1);
+
         }
         return result;
 
@@ -98,6 +129,13 @@ public class Solution3 {
         System.out.println(new Solution3().lengthOfLongestSubstring1("bbbbb"));
         System.out.println(new Solution3().lengthOfLongestSubstring1("pwwkew"));
         System.out.println(new Solution3().lengthOfLongestSubstring1("abcdaef"));
+
+        System.out.println(new Solution3().lengthOfLongestSubstring2("abcabcbb"));
+        System.out.println(new Solution3().lengthOfLongestSubstring2("bbbbb"));
+        System.out.println(new Solution3().lengthOfLongestSubstring2("pwwkew"));
+        System.out.println(new Solution3().lengthOfLongestSubstring2("abcdaef"));
+        System.out.println(new Solution3().lengthOfLongestSubstring2("abba"));
+
 
 
     }
