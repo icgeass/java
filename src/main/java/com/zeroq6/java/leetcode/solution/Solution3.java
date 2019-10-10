@@ -1,6 +1,6 @@
 package com.zeroq6.java.leetcode.solution;
 
-import java.util.HashSet;
+import java.util.*;
 
 
 /**
@@ -60,10 +60,44 @@ public class Solution3 {
 
     }
 
+
+    /**
+     * 使用滑动窗口的方式
+     *
+     * @param s
+     * @return
+     */
+    public int lengthOfLongestSubstring1(String s) {
+        int begin = 0;
+        int end = 0;
+        int result = 0;
+        int len = s.length();
+        List<Character> characterList = new ArrayList<>();
+        while (begin < len && end < len) {
+            // 不包含，end指针后移，更新最大长度
+            if (!characterList.contains(s.charAt(end))) {
+                characterList.add(s.charAt(end++));
+                // 由于end已经++了，所以不需要使用end-begin+1
+                result = Math.max(result, end - begin);
+            } else {
+                // 包含则begin指针后移，删除begin指向的值
+                characterList.remove(Character.valueOf(s.charAt(begin++)));
+            }
+        }
+        return result;
+
+    }
+
+
     public static void main(String[] args) {
         System.out.println(new Solution3().lengthOfLongestSubstring("abcabcbb"));
         System.out.println(new Solution3().lengthOfLongestSubstring("bbbbb"));
         System.out.println(new Solution3().lengthOfLongestSubstring("pwwkew"));
+
+        System.out.println(new Solution3().lengthOfLongestSubstring1("abcabcbb"));
+        System.out.println(new Solution3().lengthOfLongestSubstring1("bbbbb"));
+        System.out.println(new Solution3().lengthOfLongestSubstring1("pwwkew"));
+        System.out.println(new Solution3().lengthOfLongestSubstring1("abcdaef"));
 
 
     }
