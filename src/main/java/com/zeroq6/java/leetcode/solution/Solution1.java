@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSON;
 import com.zeroq6.java.leetcode.solution.help.ArrayHelper;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * https://leetcode-cn.com/problems/two-sum/
@@ -76,13 +78,42 @@ public class Solution1 {
     }
 
 
+    /**
+     * 使用字典法
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int[] twoSum2(int[] nums, int target) {
+        Map<Integer, Integer> dict = new HashMap<>();
+        int[] result = new int[2];
+        for (int i = 0; i < nums.length; i++) {
+            int diff = target - nums[i];
+            if (dict.get(diff) != null) {
+                result[0] = dict.get(diff);
+                result[1] = i;
+                return result;
+            }
+            dict.put(nums[i], i);
+        }
+        return null;
+    }
+
+
     public static void main(String[] args) {
         Object result = new Solution1().twoSum(ArrayHelper.genIntArray(2, 7, 11, 15), 9);
         System.out.println(JSON.toJSONString(result));
 
-        result = new Solution1().twoSum1(ArrayHelper.genIntArray(2, 7, 11, 15), 9);
+        result = new Solution1().twoSum1(ArrayHelper.genIntArray(3, 3), 6);
 
         System.out.println(JSON.toJSONString(result));
+
+        result = new Solution1().twoSum2(ArrayHelper.genIntArray(3, 2, 4), 6);
+
+        System.out.println(JSON.toJSONString(result));
+
+        System.out.println();
     }
 }
 
