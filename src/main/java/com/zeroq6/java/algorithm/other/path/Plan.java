@@ -1,6 +1,5 @@
-package com.zeroq6.java.other.path;
+package com.zeroq6.java.algorithm.other.path;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
