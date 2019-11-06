@@ -1,4 +1,4 @@
-package com.zeroq6.java.other.tree;
+package com.zeroq6.java.algorithm.other.tree;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;

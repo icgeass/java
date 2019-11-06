@@ -1,6 +1,4 @@
-package com.zeroq6.java.other.path;
-
-import java.math.BigDecimal;
+package com.zeroq6.java.algorithm.other.path;
 
 public class Path {
 

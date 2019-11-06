@@ -1,4 +1,4 @@
-package com.zeroq6.java.other.tree;
+package com.zeroq6.java.algorithm.other.tree;
 
 import java.util.List;
 
