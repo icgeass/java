@@ -7,7 +7,6 @@ public class SynchronizedMemory {
 
         public void writer() {
             a = 1;
-
             try {
                 Thread.sleep(10L);
             } catch (InterruptedException e) {
@@ -25,8 +24,7 @@ public class SynchronizedMemory {
                         break;
                     }
                     // println方法使用了synchronized，会从主内存读入flag，所以if可以读到flag被线程writer更新的值
-                    // 注意只会从主内存读入synchronized块作用范围内存的本地变量，比如打印常数123仍然读不到值
-//                    System.out.println(flag);
+//                    System.out.println(111111);
                 }
             }
         }
