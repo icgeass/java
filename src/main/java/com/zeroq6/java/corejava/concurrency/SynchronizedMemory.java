@@ -16,7 +16,7 @@ public class SynchronizedMemory {
         }
 
         public void reader() {
-            synchronized (this) { // 进入synchronized块会读主内存，进入之后就不会了，所以这里加synchronized无效，需要加到if-flag位置
+//            synchronized (this) { // 进入synchronized块会读主内存，进入之后就不会了，所以这里加synchronized无效，需要加到if-flag位置
                 while (true) {
                     if (flag) {
                         int i = a * a;
@@ -24,9 +24,9 @@ public class SynchronizedMemory {
                         break;
                     }
                     // println方法使用了synchronized，会从主内存读入flag，所以if可以读到flag被线程writer更新的值
-//                    System.out.println(111111);
+//                    System.out.println(111111); // 使用synchronized (this){// no code here}同样的效果
                 }
-            }
+//            }
         }
     }
 
