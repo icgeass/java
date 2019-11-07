@@ -1,5 +1,7 @@
 package com.zeroq6.java.corejava.jvm;
-
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryMXBean;
+import java.lang.management.MemoryUsage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,17 +10,17 @@ import java.util.List;
  * <p>
  * 使用jdk工具排查
  * <p>
- * -Xms128m -Xmx128m -Xss1m
+ * -Xms32m -Xmx32m
  */
-public class TestJdkTools {
+public class JdkTools {
 
-    private final static Object lock1 = new Object();
+    private final static Object lock1 = new JdkTools();
 
-    private final static Object lock2 = new Object();
+    private final static Object lock2 = new JdkTools();
 
-    private static List<byte[]> bytes = new ArrayList<>();
+    private final static List<char[]> chars = new ArrayList<>();
 
-    private static List<TestJdkTools[]> objects = new ArrayList<>();
+    private final static List<DemoObject> objects = new ArrayList<>();
 
     private static void acquire1() {
         synchronized (lock1) {
@@ -45,8 +47,8 @@ public class TestJdkTools {
 
 
     private static void deadLock() {
-        new Thread(TestJdkTools::acquire1, "com.zeroq6.java.corejava.jvm.TestJdkTools.deadLock-thread1").start();
-        new Thread(TestJdkTools::acquire2, "com.zeroq6.java.corejava.jvm.TestJdkTools.deadLock-thread2").start();
+        new Thread(JdkTools::acquire1, "JdkTools.deadLock-thread1").start();
+        new Thread(JdkTools::acquire2, "JdkTools.deadLock-thread2").start();
 
     }
 
@@ -57,7 +59,7 @@ public class TestJdkTools {
             while (true) {
                 i++;
             }
-        }, "com.zeroq6.java.corejava.jvm.TestJdkTools-consumeCPU-thread").start();
+        }, "JdkTools-consumeCPU-thread").start();
     }
 
     private static void outOfMemory() {
@@ -65,33 +67,47 @@ public class TestJdkTools {
         while (true) {
             try {
                 Thread t = new Thread(() -> {
+                    int size = 1024 * 1024;
                     while (true) {
-                        bytes.add(new byte[1024 * 1024 * 16]);
-                        objects.add(new TestJdkTools[1024 * 1024 * 16]);
+                        chars.add(new char[size]);
+                        for (int i = 0; i < size; i++) {
+                            objects.add(new DemoObject());
+                        }
                     }
-                }, "com.zeroq6.java.corejava.jvm.TestJdkTools-outOfMemory-thread-" + n++);
+                }, "JdkTools-outOfMemory-thread-" + n++);
                 t.start();
                 t.join();
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
                 try {
-                    Thread.sleep(5000L);
+                    Thread.sleep(1000 * 20L);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                bytes.clear();
+                chars.clear();
                 objects.clear();
             }
         }
     }
 
     public static void main(String[] args) {
-        System.out.println("-Xms128m -Xmx128m -Xss1m");
+        MemoryMXBean memoryMBean = ManagementFactory.getMemoryMXBean();
+        MemoryUsage usage = memoryMBean.getHeapMemoryUsage();
+        int maxSize = 1024 * 1024 * 32;
+        if (usage.getInit() > maxSize || usage.getMax() > maxSize) {
+            System.out.println("Use: -Xms32m -Xmx32m");
+            return;
+        }
         deadLock();
         consumeCPU();
         outOfMemory();
     }
 
 
+}
+
+class DemoObject {
+    int a = 10086;
+    long[] longs = new long[1024];
 }
