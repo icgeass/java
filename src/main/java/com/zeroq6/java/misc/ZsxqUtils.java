@@ -15,15 +15,13 @@ public class ZsxqUtils {
     public static void main(String[] args) throws Exception {
 
         String fileDir = "E:\\知识星球\\老齐的读书圈";
-        List<String> list = FileUtils.readLines(new File(fileDir + File.separator + "目录.txt"), "utf-8");
-        list.remove(0);
-        list.remove(0);
+        List<String> indexList = FileUtils.readLines(new File(fileDir + File.separator + "目录.txt"), "utf-8").stream().filter(s -> StringUtils.isNotBlank(s) && !s.startsWith("http") && !s.contains("#") && !s.contains("=")).collect(Collectors.toList());
         int digitLength = 4;
         List<String> nameList = FileUtils.listFiles(new File(fileDir + File.separator + "文件"), null, true).stream().map(file ->
                 file.getName()).collect(Collectors.toList());
 
 
-        List<String> list2 = new ArrayList<>(list);
+        List<String> listCopy = Collections.unmodifiableList(new ArrayList<>(indexList));
 
         for (String name : nameList) {
             String title = name.replace(".mp3", "").replace(".docx", "")
@@ -33,16 +31,17 @@ public class ZsxqUtils {
             boolean findIt = false;
             if (name.startsWith("[")) {
                 System.out.println(name + " already renamed");
-                continue;
-            }
-            for (String string : Collections.unmodifiableList(list)) {
-                if (StringUtils.isBlank(string) || string.contains("http")) {
-                    list2.remove(string);
+                String indexName = title.substring(1, digitLength + 1) + title.substring(digitLength + 2);
+                if (indexList.contains(indexName)) {
                     continue;
+                } else {
+                    throw new RuntimeException("can not find " + name + " in .txt");
                 }
+            }
+            for (String string : indexList) {
                 String num = string.substring(0, digitLength);
                 if (string.substring(digitLength).equals(title)) {
-                    list2.remove(string);
+                    listCopy.remove(string);
                     if (findIt) {
                         System.err.println("more than 1 match, " + name);
                         break;
@@ -58,7 +57,7 @@ public class ZsxqUtils {
                 System.err.println("not found match, " + name);
             }
         }
-        for (String s : list2) {
+        for (String s : listCopy) {
             System.out.println("not download, " + s);
         }
 
