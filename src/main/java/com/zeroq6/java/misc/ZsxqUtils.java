@@ -15,13 +15,13 @@ public class ZsxqUtils {
     public static void main(String[] args) throws Exception {
 
         String fileDir = "E:\\知识星球\\老齐的读书圈";
-        List<String> indexList = FileUtils.readLines(new File(fileDir + File.separator + "目录.txt"), "utf-8").stream().filter(s -> StringUtils.isNotBlank(s) && !s.startsWith("http") && !s.contains("#") && !s.contains("=")).collect(Collectors.toList());
+        List<String> indexList = Collections.unmodifiableList(FileUtils.readLines(new File(fileDir + File.separator + "目录.txt"), "utf-8").stream().filter(s -> StringUtils.isNotBlank(s) && !s.startsWith("http") && !s.contains("#") && !s.contains("=")).collect(Collectors.toList()));
         int digitLength = 4;
         List<String> nameList = FileUtils.listFiles(new File(fileDir + File.separator + "文件"), null, true).stream().map(file ->
                 file.getName()).collect(Collectors.toList());
 
 
-        List<String> listCopy = Collections.unmodifiableList(new ArrayList<>(indexList));
+        List<String> listCopy = new ArrayList<>(indexList);
 
         for (String name : nameList) {
             String title = name.replace(".mp3", "").replace(".docx", "")
