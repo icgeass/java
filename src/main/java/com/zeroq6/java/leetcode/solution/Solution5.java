@@ -37,9 +37,12 @@ public class Solution5 {
      */
     public String longestPalindrome(String s) {
         //
+        if (s.length() == 0) {
+            return "";
+        }
         int[] tmp = new int[s.length()];
-        int[] ints = null;
-        StringBuilder result = new StringBuilder();
+        int[] pointsTmp = null;
+        int[] points = new int[2];
         // i表示移位,用于查找最长子串
         for (int i = 0; i < s.length(); i++) {
             int index = 0;
@@ -47,37 +50,23 @@ public class Solution5 {
             for (int j = 0; j < s.length() - i; j++) {
                 tmp[index++] = s.charAt(j) - s.charAt(s.length() - 1 - j - i);
             }
-            ints = getZeroRangeIndex(tmp, 0, s.length() - 1 - i, s);
-            result = getSubstring(result, s, ints[0], ints[1]);
+            pointsTmp = getZeroRangeIndex(tmp, 0, s.length() - 1 - i, s);
+            if (pointsTmp[1] - pointsTmp[0] + 1 > points[1] - points[0] + 1) {
+                points = pointsTmp;
+            }
             // 以右边为准,第二种情况,每次位移,相当于基准增加,所以+i
             index = 0;
             for (int j = i; j < s.length(); j++) {
                 tmp[i + index++] = s.charAt(j) - s.charAt(s.length() - 1 - j + i);
             }
-            ints = getZeroRangeIndex(tmp, i, s.length() - 1, s);
-            result = getSubstring(result, s, ints[0], ints[1]);
+            pointsTmp = getZeroRangeIndex(tmp, i, s.length() - 1, s);
+            if (pointsTmp[1] - pointsTmp[0] + 1 > points[1] - points[0] + 1) {
+                points = pointsTmp;
+            }
 
         }
-        return result.toString();
+        return s.substring(points[0], points[1] + 1);
 
-    }
-
-    /**
-     * 获取子字符串
-     *
-     * @param result
-     * @param s
-     * @param fromIndex
-     * @param toIndex
-     * @return
-     */
-    private StringBuilder getSubstring(StringBuilder result, String s, int fromIndex, int toIndex) {
-        if (result.length() == 0 || toIndex - fromIndex + 1 > result.length()) {
-            String sub = s.substring(fromIndex, toIndex + 1);
-            result.delete(0, result.length());
-            result.append(sub);
-        }
-        return result;
     }
 
 
@@ -127,10 +116,18 @@ public class Solution5 {
             // abacdfgdcaba
             // abacdgfdcaba
             String str = originalString.substring(nextBeginPoint, nextEndPoint + 1);
-            if (new StringBuilder(str).reverse().toString().equals(str)) {
-                points[0] = nextBeginPoint;
-                points[1] = nextEndPoint;
+            int length = str.length();
+            // 判断回文
+            // 假设下标都从1开始:
+            // 如果length为双数,则length/2正好在前一半最后的位置,而下标从0开始,则小于length/2正好满足
+            // 如果length为单数,相当于双数中间的那个数舍去了,也等于前面一半最后的位置,而下标从0开始,则小于length/2正好满足
+            for (int i = 0; i < length / 2; i++) {
+                if (str.charAt(i) != str.charAt(len - 1 - i)) {
+                    return;
+                }
             }
+            points[0] = nextBeginPoint;
+            points[1] = nextEndPoint;
         }
     }
 
