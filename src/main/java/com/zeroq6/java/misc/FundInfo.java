@@ -15,11 +15,6 @@ import java.util.Base64;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * http://fund.eastmoney.com/data/gmbddetail.html#dt8;t2019_4;pi1;pn50;stdesc;scqmzfe
- * http://fund.eastmoney.com/data/FundDataPortfolio_Interface.aspx?dt=8&t=2019_4&pn=1000&mc=returnJson&st=desc&sc=qmzfe
- */
-
 public class FundInfo {
 
 
