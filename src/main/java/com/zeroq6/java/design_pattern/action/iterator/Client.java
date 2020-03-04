@@ -1,0 +1,19 @@
+package com.zeroq6.java.design_pattern.action.iterator;
+
+/**
+ * 类似于ArrayList的迭代器（传统遍历size()，get(i)暴露了细节）
+ */
+public class Client {
+    public static void main(String[] args) {
+        // 定义聚集对象
+        Aggregate agg = new ConcreteAggregate();
+        agg.add("张三");
+        agg.add("李四");
+        agg.add("王五");
+        // 遍历
+        Iterator iterator = agg.createIterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
+    }
+}
