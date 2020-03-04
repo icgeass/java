@@ -32,7 +32,7 @@ public class QuickSort {
      * @param right 需要排序的数组右边位置
      * @param ints
      */
-    private void quickSort(int left, int right, int[] ints) {
+    public void quickSort(int left, int right, int[] ints) {
         int i = left;
         int j = right;
         int tmp = 0;

@@ -22,7 +22,7 @@ public class SelectSort {
             // minPos表示位置i或之后最小值位置
             minPos = i;
             for (int j = i + 1; j < ints.length; j++) {
-                if (ints[minPos] > ints[j]) {
+                if (ints[j] < ints[minPos]) {
                     minPos = j;
                 }
             }
