@@ -6,6 +6,49 @@ public class CompletionServiceTest1Translate {
 
     public static void main(String[] args) throws Exception {
         System.out.println("---->" + new CompletionServiceTest1Translate().translate("word"));
+        System.out.println("===============================");
+        System.out.println("---->" + new CompletionServiceTest1Translate().translate2("word2"));
+    }
+
+
+    public String translate2(String content) throws Exception {
+
+        final CountDownLatch countDownLatch = new CountDownLatch(1);
+        final StringBuilder stringBuilder = new StringBuilder();
+        new Thread(()-> {
+            if(appendResult(stringBuilder, baidu(content))){
+                countDownLatch.countDown();
+            }
+
+        }).start();
+        new Thread(()-> {
+            if(appendResult(stringBuilder, youdao(content))){
+                countDownLatch.countDown();
+            }
+        }).start();
+        new Thread(()-> {
+            if(appendResult(stringBuilder, google(content))){
+                countDownLatch.countDown();
+            }
+        }).start();
+        countDownLatch.await();
+        return stringBuilder.toString();
+
+    }
+
+    private boolean appendResult(StringBuilder stringBuilder, String result){
+        if(null == stringBuilder){
+            return false;
+        }
+        if(stringBuilder.length() == 0){
+            synchronized (this){
+                if(stringBuilder.length() == 0){
+                    stringBuilder.append(result);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 
