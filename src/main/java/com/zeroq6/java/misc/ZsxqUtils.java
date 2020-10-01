@@ -2,6 +2,7 @@ package com.zeroq6.java.misc;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Triple;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -13,55 +14,77 @@ public class ZsxqUtils {
 
 
     public static void main(String[] args) throws Exception {
+        String baseFolder = "E:\\知识星球\\老齐的读书圈";
+        String baseFolderIndex = baseFolder + File.separator + "目录.txt";
+        String baseFolderFile = baseFolder + File.separator + "文件";
+        //
+        List<String> indexNameList = Collections.unmodifiableList(FileUtils.readLines(new File(baseFolderIndex), "utf-8").stream().filter(s -> StringUtils.isNotBlank(s) && !s.startsWith("http") && !s.contains("#") && !s.contains("=")).collect(Collectors.toList()));
+        List<String> fileNameList = FileUtils.listFiles(new File(baseFolderFile), null, true).stream().map(File::getName).collect(Collectors.toList());
+        //
+        List<String> indexNameListCopy = new ArrayList<>(indexNameList);
+        //
+        final int digitLength = 4;
+        final String begin = "[";
+        final String end = "]";
+        //
+        List<Triple<File, String, File>> renameFilePair = new ArrayList<>();
 
-        String fileDir = "E:\\知识星球\\老齐的读书圈";
-        List<String> indexList = Collections.unmodifiableList(FileUtils.readLines(new File(fileDir + File.separator + "目录.txt"), "utf-8").stream().filter(s -> StringUtils.isNotBlank(s) && !s.startsWith("http") && !s.contains("#") && !s.contains("=")).collect(Collectors.toList()));
-        int digitLength = 4;
-        List<String> nameList = FileUtils.listFiles(new File(fileDir + File.separator + "文件"), null, true).stream().map(file ->
-                file.getName()).collect(Collectors.toList());
-
-
-        List<String> listCopy = new ArrayList<>(indexList);
-
-        for (String name : nameList) {
-            String title = name.replace(".mp3", "").replace(".docx", "")
-                    .replace("（合集）上", "").replace("（合集）中", "")
-                    .replace("（合集）下", "").replace("（合集）", "")
-                    .replace("修改", "").replace("（2019补充）", "");
-            boolean findIt = false;
-            if (name.startsWith("[")) {
-                System.out.println(name + " already renamed");
-                String indexName = title.substring(1, digitLength + 1) + title.substring(digitLength + 2);
-                if (indexList.contains(indexName)) {
+        for (String fileName : fileNameList) {
+            String title = findTitle(fileName);
+            // 验证，如果文件已经重命名，那么从title（[0001]xxxx）中获取的indexName（0001xxxx）必然包含在indexNameList中
+            if (fileName.startsWith(begin)) {
+                String indexName = title.substring(title.indexOf(begin) + 1, title.indexOf(end)) + title.substring(title.indexOf(end) + 1);
+                if (indexNameList.contains(indexName)) {
+                    indexNameListCopy.remove(indexName);
                     continue;
                 } else {
-                    throw new RuntimeException("can not find " + name + " in .txt");
+                    throw new RuntimeException("无法在目录文件中找到已重命名文件 " + fileName + " 的indexName" + indexName);
                 }
             }
-            for (String string : indexList) {
-                String num = string.substring(0, digitLength);
-                if (string.substring(digitLength).equals(title)) {
-                    listCopy.remove(string);
-                    if (findIt) {
-                        System.err.println("more than 1 match, " + name);
-                        break;
+            boolean findTitleInIndexNameList = false;
+
+            for (String indexName : indexNameList) {
+                String num = indexName.substring(0, digitLength);
+                if (findTitle(indexName.substring(digitLength)).equals(title)) {
+                    // 余下的就是indexNameList里面没有被文件名匹配的，就是未下载的
+                    indexNameListCopy.remove(indexName);
+                    if (findTitleInIndexNameList) {
+                        throw new RuntimeException("indexName" + indexName + "在目录文件中重复");
                     } else {
-                        System.out.println(name + "---->[" + num + "]" + name);
-                        // uncomment it when all match and only match one times
-//                        FileUtils.moveFile(new File(fileDir + File.separator + name), new File(fileDir + File.separator + "[" + num + "]" + name));
-                        findIt = true;
+                        renameFilePair.add(Triple.of(new File(baseFolderFile + File.separator + fileName), indexName, new File(baseFolderFile + File.separator + "[" + num + "]" + fileName)));
+                        findTitleInIndexNameList = true;
                     }
                 }
             }
-            if (!findIt) {
-                System.err.println("not found match, " + name);
+            if (!findTitleInIndexNameList) {
+                throw new RuntimeException("未在目录文件中找到文件 " + fileName + "（title：" + title + "）的indexName");
             }
         }
-        for (String s : listCopy) {
-            System.out.println("not download, " + s);
+        for (String remainNotMatchFileNameIndexName : indexNameListCopy) {
+            throw new RuntimeException("文件 " + remainNotMatchFileNameIndexName + " 未下载");
+        }
+        // 重命名文件
+        for (Triple<File, String, File> triple : renameFilePair) {
+            File src = triple.getLeft();
+            File des = triple.getRight();
+            FileUtils.moveFile(src, des);
+            System.out.println(src.getName() + " <---" + triple.getMiddle() + "---> " + des.getName());
         }
 
 
+    }
+
+    private static String findTitle(String name) {
+        String title = name.replace("修改", "")
+                .replaceAll("\\s+", "");
+        String[] removeToRight = new String[]{"（", "合集", "修改", "."};
+        for (String remove : removeToRight) {
+            int endPos = title.indexOf(remove);
+            if (endPos != -1) {
+                title = title.substring(0, endPos);
+            }
+        }
+        return title;
     }
 
 }
