@@ -1,0 +1,155 @@
+==================获取==================
+当前关系: A_ADD_B(0b10)
+1,2	A_ADD_B(0b10)
+---
+2,1	B_ADD_A(0b01)
+当前关系: B_ADD_A(0b01)
+1,2	B_ADD_A(0b01)
+---
+2,1	A_ADD_B(0b10)
+当前关系: ALL_ADD(0b11)
+1,2	ALL_ADD(0b11)
+---
+2,1	ALL_ADD(0b11)
+当前关系: ALL_NOT_ADD(0b00)
+1,2	ALL_NOT_ADD(0b00)
+---
+2,1	ALL_NOT_ADD(0b00)
+==================添加==================
+当前关系: A_ADD_B(0b10), 要添加的关系：A_ADD_B(0b10)
+1,2	A_ADD_B(0b10)
+---
+2,1	ALL_ADD(0b11)
+当前关系: A_ADD_B(0b10), 要添加的关系：B_ADD_A(0b01)
+1,2	ALL_ADD(0b11)
+---
+2,1	B_ADD_A(0b01)
+当前关系: A_ADD_B(0b10), 要添加的关系：ALL_ADD(0b11)
+1,2	ALL_ADD(0b11)
+---
+2,1	ALL_ADD(0b11)
+当前关系: A_ADD_B(0b10), 要添加的关系：ALL_NOT_ADD(0b00)
+1,2	A_ADD_B(0b10)
+---
+2,1	B_ADD_A(0b01)
+---------------------
+当前关系: B_ADD_A(0b01), 要添加的关系：A_ADD_B(0b10)
+1,2	ALL_ADD(0b11)
+---
+2,1	A_ADD_B(0b10)
+当前关系: B_ADD_A(0b01), 要添加的关系：B_ADD_A(0b01)
+1,2	B_ADD_A(0b01)
+---
+2,1	ALL_ADD(0b11)
+当前关系: B_ADD_A(0b01), 要添加的关系：ALL_ADD(0b11)
+1,2	ALL_ADD(0b11)
+---
+2,1	ALL_ADD(0b11)
+当前关系: B_ADD_A(0b01), 要添加的关系：ALL_NOT_ADD(0b00)
+1,2	B_ADD_A(0b01)
+---
+2,1	A_ADD_B(0b10)
+---------------------
+当前关系: ALL_ADD(0b11), 要添加的关系：A_ADD_B(0b10)
+1,2	ALL_ADD(0b11)
+---
+2,1	ALL_ADD(0b11)
+当前关系: ALL_ADD(0b11), 要添加的关系：B_ADD_A(0b01)
+1,2	ALL_ADD(0b11)
+---
+2,1	ALL_ADD(0b11)
+当前关系: ALL_ADD(0b11), 要添加的关系：ALL_ADD(0b11)
+1,2	ALL_ADD(0b11)
+---
+2,1	ALL_ADD(0b11)
+当前关系: ALL_ADD(0b11), 要添加的关系：ALL_NOT_ADD(0b00)
+1,2	ALL_ADD(0b11)
+---
+2,1	ALL_ADD(0b11)
+---------------------
+当前关系: ALL_NOT_ADD(0b00), 要添加的关系：A_ADD_B(0b10)
+1,2	A_ADD_B(0b10)
+---
+2,1	A_ADD_B(0b10)
+当前关系: ALL_NOT_ADD(0b00), 要添加的关系：B_ADD_A(0b01)
+1,2	B_ADD_A(0b01)
+---
+2,1	B_ADD_A(0b01)
+当前关系: ALL_NOT_ADD(0b00), 要添加的关系：ALL_ADD(0b11)
+1,2	ALL_ADD(0b11)
+---
+2,1	ALL_ADD(0b11)
+当前关系: ALL_NOT_ADD(0b00), 要添加的关系：ALL_NOT_ADD(0b00)
+1,2	ALL_NOT_ADD(0b00)
+---
+2,1	ALL_NOT_ADD(0b00)
+---------------------
+==================删除==================
+当前关系: A_ADD_B(0b10), 要删除的关系：A_ADD_B(0b10)
+1,2	ALL_NOT_ADD(0b00)
+---
+2,1	B_ADD_A(0b01)
+当前关系: A_ADD_B(0b10), 要删除的关系：B_ADD_A(0b01)
+1,2	A_ADD_B(0b10)
+---
+2,1	ALL_NOT_ADD(0b00)
+当前关系: A_ADD_B(0b10), 要删除的关系：ALL_ADD(0b11)
+1,2	ALL_NOT_ADD(0b00)
+---
+2,1	ALL_NOT_ADD(0b00)
+当前关系: A_ADD_B(0b10), 要删除的关系：ALL_NOT_ADD(0b00)
+1,2	A_ADD_B(0b10)
+---
+2,1	B_ADD_A(0b01)
+---------------------
+当前关系: B_ADD_A(0b01), 要删除的关系：A_ADD_B(0b10)
+1,2	B_ADD_A(0b01)
+---
+2,1	ALL_NOT_ADD(0b00)
+当前关系: B_ADD_A(0b01), 要删除的关系：B_ADD_A(0b01)
+1,2	ALL_NOT_ADD(0b00)
+---
+2,1	A_ADD_B(0b10)
+当前关系: B_ADD_A(0b01), 要删除的关系：ALL_ADD(0b11)
+1,2	ALL_NOT_ADD(0b00)
+---
+2,1	ALL_NOT_ADD(0b00)
+当前关系: B_ADD_A(0b01), 要删除的关系：ALL_NOT_ADD(0b00)
+1,2	B_ADD_A(0b01)
+---
+2,1	A_ADD_B(0b10)
+---------------------
+当前关系: ALL_ADD(0b11), 要删除的关系：A_ADD_B(0b10)
+1,2	B_ADD_A(0b01)
+---
+2,1	B_ADD_A(0b01)
+当前关系: ALL_ADD(0b11), 要删除的关系：B_ADD_A(0b01)
+1,2	A_ADD_B(0b10)
+---
+2,1	A_ADD_B(0b10)
+当前关系: ALL_ADD(0b11), 要删除的关系：ALL_ADD(0b11)
+1,2	ALL_NOT_ADD(0b00)
+---
+2,1	ALL_NOT_ADD(0b00)
+当前关系: ALL_ADD(0b11), 要删除的关系：ALL_NOT_ADD(0b00)
+1,2	ALL_ADD(0b11)
+---
+2,1	ALL_ADD(0b11)
+---------------------
+当前关系: ALL_NOT_ADD(0b00), 要删除的关系：A_ADD_B(0b10)
+1,2	ALL_NOT_ADD(0b00)
+---
+2,1	ALL_NOT_ADD(0b00)
+当前关系: ALL_NOT_ADD(0b00), 要删除的关系：B_ADD_A(0b01)
+1,2	ALL_NOT_ADD(0b00)
+---
+2,1	ALL_NOT_ADD(0b00)
+当前关系: ALL_NOT_ADD(0b00), 要删除的关系：ALL_ADD(0b11)
+1,2	ALL_NOT_ADD(0b00)
+---
+2,1	ALL_NOT_ADD(0b00)
+当前关系: ALL_NOT_ADD(0b00), 要删除的关系：ALL_NOT_ADD(0b00)
+1,2	ALL_NOT_ADD(0b00)
+---
+2,1	ALL_NOT_ADD(0b00)
+---------------------
