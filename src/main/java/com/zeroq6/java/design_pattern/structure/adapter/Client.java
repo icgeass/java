@@ -6,7 +6,7 @@ package com.zeroq6.java.design_pattern.structure.adapter;
  */
 public class Client {
 
-
+    // 将Adaptee适配到Target接口，方法时用Adapter继承Adaptee并且实现Target
     public static void main(String[] args) {
         Target target = new Adapter();
         target.request();

@@ -2,6 +2,11 @@ package com.zeroq6.java.design_pattern.structure.bridge;
 
 
 /**
+ *
+ * Decouple an abstraction from its implementation so that the two can
+ * vary independently.
+ * 意思是：将抽象和实现解耦，使得两者可以独立地变化。
+ *
  * 和适配器模式的区别在于**是否修正**,Abstraction是抽象类
  * <p>
  * 桥接模式和适配器模式的区别
@@ -18,6 +23,8 @@ package com.zeroq6.java.design_pattern.structure.bridge;
  */
 public class Client {
 
+    // 将Implementor接口桥接到Abstraction，Abstraction的实现类保存了Implementor实现类，
+    // Implementor和Abstraction接口分类开来
     public static void main(String[] args) {
         // 定义一个实现化角色
         Implementor imp = new ConcreteImplementor();
