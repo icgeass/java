@@ -1,32 +1,33 @@
 package com.zeroq6.java.design_pattern.structure.composite;
 
-import com.alibaba.fastjson.JSON;
 
 /**
- * 将对象组合成树形结构以表示“部分—整体”的层次结构，使得用户对单个对象和组合对象的使用具有一致性
+ * Compose objects into tree structures to represent part-whole hierarchies.
+ * Composite lets clients treat individual objects and compositions of objects
+ * uniformly.
+ * 意思是：将对象组合成树形结构以表示“部分—整体”的层次结构，
+ * 使得用户对单个对象和组合对象的使用具有一致性。
  */
 public class Client {
 
 
     public static void main(String[] args) {
-        Component component1 = new Composite("composite1");
-
-        component1.operate();
-        component1.add(new Leaf("leaf11"));
-        component1.add(new Leaf("leaf12"));
-        component1.remove(new Leaf("leaf11"));
-        System.out.println(JSON.toJSONString(component1.getChildren()));
-
-        System.out.println("------------------------");
-
-        Component component2 = new Leaf("leaf2");
-
-        component2.operate();
-        component2.add(new Leaf("xxxx1"));
-        component2.add(new Leaf("xxxx2"));
-        component2.remove(new Leaf("xxxx1"));
-        System.out.println(JSON.toJSONString(component2.getChildren()));
-
+        //
+        File root = new Folder("folder1");
+        File folder = new Folder("folder2");
+        File file1 = new VideoFile("file1");
+        File file2 = new TextFile("file2");
+        File file3 = new TextFile("file3");
+        root.add(folder);
+        root.add(file1);
+        root.add(file2);
+        folder.add(file3);
+        // 打印
+        root.display();
+        System.out.println("================");
+        folder.display();
+        System.out.println("================");
+        file1.display();
 
 
     }
