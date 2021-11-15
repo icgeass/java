@@ -20,6 +20,7 @@ public class Client {
         ObjectStruct objectStruct = new ObjectStruct();
         objectStruct.addElement(new ConcreteElement1("e1"));
         objectStruct.addElement(new ConcreteElement2("e2"));
+        // 传入一个访问者，用访问者来访问objectStruct里面的所有元素，访问者实现了访问所有元素的接口
         objectStruct.accept(visitor);
 
     }
