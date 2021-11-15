@@ -6,6 +6,12 @@ public class VideoFile extends File{
     }
 
     @Override
+    public boolean isFile() {
+        return false;
+    }
+
+
+    @Override
     public void display() {
         System.out.println(">VideoFile: " + this.name);
     }

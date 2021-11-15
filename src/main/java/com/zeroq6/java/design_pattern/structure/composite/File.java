@@ -13,6 +13,8 @@ public abstract class File {
 
     public abstract void display();
 
+    public abstract boolean isFile();
+
     public List<File> getChildren(){
         return new ArrayList<>();
     }

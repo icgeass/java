@@ -19,6 +19,11 @@ public class Folder extends File{
     }
 
     @Override
+    public boolean isFile() {
+        return false;
+    }
+
+    @Override
     public List<File> getChildren() {
         return children;
     }
