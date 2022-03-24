@@ -4,6 +4,7 @@ package com.zeroq6.java.design_pattern.create.factory.abstract_factory;
 /**
  * factory生产的不是最终产品,而是组成最终产品的部件
  * 最终产品根据不同的部件组成了不同的类型产品,如戴尔鼠标键盘的计算器或者惠普鼠标键盘的电脑
+ * 如果一个产品只有一个部件（方法），则这个部件就是一个产品，就和工厂方法一样了
  */
 public class Client {
     public static void main(String[] args) {
