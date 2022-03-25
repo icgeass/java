@@ -13,20 +13,28 @@ public class Client {
 
     public static void main(String[] args) {
         //
-        File root = new Folder("folder1");
-        File folder = new Folder("folder2");
+        File root = new Folder("root");
+        File folder1 = new Folder("folder1");
+        File folder2 = new Folder("folder2");
+
         File file1 = new VideoFile("file1");
         File file2 = new TextFile("file2");
         File file3 = new TextFile("file3");
-        root.add(folder);
+        File file4 = new VideoFile("file4");
+        File file5 = new TextFile("file5");
+
+        root.add(folder1);
         root.add(file1);
         root.add(file2);
-        folder.add(file3);
+        folder1.add(file3);
+        folder1.add(folder2);
+        folder2.add(file4);
+        folder2.add(file5);
+        System.out.println("-----------------------");
         // 打印
         root.display();
-        System.out.println("================");
-        folder.display();
-        System.out.println("================");
+        folder1.display();
+        folder2.display();
         file1.display();
 
 

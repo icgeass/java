@@ -7,12 +7,12 @@ public class VideoFile extends File{
 
     @Override
     public boolean isFile() {
-        return false;
+        return true;
     }
 
 
     @Override
     public void display() {
-        System.out.println(">VideoFile: " + this.name);
+        System.out.println("-VideoFile: " + this.name);
     }
 }

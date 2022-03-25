@@ -1,6 +1,5 @@
 package com.zeroq6.java.design_pattern.structure.composite;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class File {
@@ -15,15 +14,19 @@ public abstract class File {
 
     public abstract boolean isFile();
 
-    public List<File> getChildren(){
-        return new ArrayList<>();
+    public List<File> getChildren() {
+        throw new UnsupportedOperationException();
     }
 
-    public void add(File file){
-
+    public String getName() {
+        return this.name;
     }
 
-    public void remove(File file){
+    public void add(File file) {
+        throw new UnsupportedOperationException();
+    }
 
+    public void remove(File file) {
+        throw new UnsupportedOperationException();
     }
 }
