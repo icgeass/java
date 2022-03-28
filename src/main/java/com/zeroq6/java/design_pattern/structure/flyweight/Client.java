@@ -1,5 +1,8 @@
 package com.zeroq6.java.design_pattern.structure.flyweight;
 
+/**
+ * 享元模式（Flyweight）：是池技术的重要实现方式，使用共享对象可有效地支持大量的细粒度的对象。
+ */
 public class Client {
 
     public static void main(String[] args) {

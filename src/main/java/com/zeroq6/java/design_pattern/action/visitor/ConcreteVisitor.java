@@ -4,7 +4,7 @@ public class ConcreteVisitor implements Visitor {
 
     @Override
     public void accept(ConcreteElement1 concreteElement1) {
-        System.out.println("ConcreteVisitor visit " + concreteElement1.getName());
+        System.out.println("ConcreteVisitor visit ConcreteElement1" + concreteElement1.getName());
         concreteElement1.specialMethod1();
     }
 

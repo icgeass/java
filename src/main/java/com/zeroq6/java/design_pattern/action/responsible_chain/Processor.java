@@ -18,6 +18,6 @@ public class Processor {
                 handler = handler.getNext();
             }
         }
-        System.out.println("No handler found");
+        System.out.println("No handler found for " + request);
     }
 }

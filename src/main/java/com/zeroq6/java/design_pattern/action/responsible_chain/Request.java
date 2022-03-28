@@ -24,4 +24,12 @@ public class Request {
     public void setRequestData(String requestData) {
         this.requestData = requestData;
     }
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "requestType=" + requestType +
+                ", requestData='" + requestData + '\'' +
+                '}';
+    }
 }

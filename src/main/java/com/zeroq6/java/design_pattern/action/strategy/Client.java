@@ -1,5 +1,9 @@
 package com.zeroq6.java.design_pattern.action.strategy;
 
+/**
+ * 定义一组算法，将每个算法都封装起来，并且使它们之间
+ * 可以互换。
+ */
 public class Client {
 
     public static void main(String[] args) {

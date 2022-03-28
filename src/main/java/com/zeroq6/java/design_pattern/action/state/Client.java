@@ -7,6 +7,7 @@ package com.zeroq6.java.design_pattern.action.state;
  *
  * Context被动通过状态改变来表现出不同的行为
  * 每个状态行为结束后,将Context的状态设置为下一个状态,然后调用Context让其表现出其他状态的行为
+ * （状态模式的核心是将对象每一个状态做的事情分别交给每一个单独的状态对象处理，并且由状态自己控制向其他状态的转移；行为类仅向外提供方便用户使用的接口；）
  *
  * Allow an object to alter its behavior when its internal state changes. The
  * object will appear to change its class.
