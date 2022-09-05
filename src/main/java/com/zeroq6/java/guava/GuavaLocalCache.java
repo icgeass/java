@@ -1,7 +1,10 @@
 package com.zeroq6.java.guava;
 
 
-import com.google.common.cache.*;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
@@ -92,6 +95,8 @@ public class GuavaLocalCache {
         // 预热
         // CACHE3.getAll(Lists.newArrayList(KEY));
         testSpeed(supplier3, 100);
+        LISTENING_EXECUTOR_SERVICE.shutdown();
+        LISTENING_EXECUTOR_SERVICE.awaitTermination(10, TimeUnit.SECONDS);
     }
 
 
