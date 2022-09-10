@@ -68,9 +68,15 @@ public class StreamUtils {
 
     public static <T, K> Map<K, List<T>> groupingBy(List<T> list,
                                                     Function<? super T, ? extends K> keyMapper) {
+        return groupingBy(list, keyMapper, Function.identity());
+    }
+
+    public static <T, K, U> Map<K, List<U>> groupingBy(List<T> list,
+                                                       Function<? super T, ? extends K> keyMapper,
+                                                       Function<? super T, ? extends U> valueListItemMapper) {
         if (CollectionUtils.isEmpty(list)) {
             return new HashMap<>();
         }
-        return list.stream().filter(Objects::nonNull).distinct().collect(Collectors.groupingBy(keyMapper));
+        return list.stream().filter(Objects::nonNull).distinct().collect(Collectors.groupingBy(keyMapper, Collectors.mapping(valueListItemMapper, Collectors.toList())));
     }
 }
